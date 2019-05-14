@@ -1,16 +1,18 @@
 const webpack = require("webpack");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
-const ErrorOverlayPlugin = require("error-overlay-webpack-plugin");
-
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin
 const htmlPlugin = new HtmlWebPackPlugin({
   template: "./src/index.html",
   filename: "./index.html"
 });
+const pp = new webpack.ProvidePlugin({
+  React: 'react'
+})
+const hmr = new webpack.HotModuleReplacementPlugin();
 // const definePlugin = new webpack.DefinePlugin({
 //   API_URL: JSON.stringify("https://lms1210.azurewebsites.net"),
 //   HOST_URL: JSON.stringify("http://localhost:8080")
 // });
-const errorOverlayPlugin = new ErrorOverlayPlugin();
 
 module.exports = {
   entry: "./src/index.js",
@@ -39,5 +41,5 @@ module.exports = {
       }
     ]
   },
-  plugins: [htmlPlugin]
+  plugins: [htmlPlugin, hmr, pp, new BundleAnalyzerPlugin()]
 };

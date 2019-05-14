@@ -2,6 +2,8 @@ const webpack = require("webpack");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const ErrorOverlayPlugin = require("error-overlay-webpack-plugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const CleanWebpackPlugin = require("clean-webpack-plugin")
+
 const path = require("path");
 
 const htmlPlugin = new HtmlWebPackPlugin({
@@ -17,9 +19,17 @@ const errorOverlayPlugin = new ErrorOverlayPlugin();
 module.exports = {
   entry: "./src/index.js",
   devtool: "none",
-  output: {
-    publicPath: "/",
-    path: path.resolve("build"),
+  output: {    
+    // `chunkFilename` provides a template for naming code-split bundles (optional)
+    // chunkFilename: 'app.[hash].js',
+    // `publicPath` is where Webpack will load your bundles from (optional)
+    // publicPath: 'dist/'
+    publicPath: "./",
+    // `path` is the folder where Webpack will place your bundles
+    // path: './dist',
+    path: path.resolve("build"),    
+    // `filename` provides a template for naming your bundles (remember to use `[name]`)
+    // filename: '[name].bundle.js',
     filename: "app-[hash].js"
   },
   resolve: {
@@ -59,5 +69,5 @@ module.exports = {
       })
     ]
   },
-  plugins: [htmlPlugin, errorOverlayPlugin]
+  plugins: [htmlPlugin, errorOverlayPlugin, new CleanWebpackPlugin()]
 };
