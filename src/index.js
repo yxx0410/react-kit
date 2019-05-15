@@ -1,4 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-ReactDOM.render(<div>hello react</div>, document.getElementById('root'));
+const App = () => {
+  const [state, setState] = React.useState(false)
+  return (
+    <div>hello react</div>
+  )
+}
+ReactDOM.render(<App />, document.getElementById('root'));
